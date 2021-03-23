@@ -61,9 +61,9 @@ var
 begin
   pJSONObject := TJSONObject.Create;
 
+  pJSONArray := TJSONArray.Create();
   for i := 0 to Length(MainFrames) - 1 do
   begin
-    pJSONArray := TJSONArray.Create();
     pInnerObject := TJSONObject.Create;
     pInnerObject.AddPair(TJSONPair.Create(cJSON_name, MainFrames[i].fFrame.Name));
     pInnerObject.AddPair(TJSONPair.Create(cJSON_active, MainFrames[i].fActive.ToString()));
@@ -145,7 +145,7 @@ var
 begin
   pFrameCnt := 1;
   for pFrameNum := 0 to TScrollBox(aParent).ControlCount - 1 do
-    if TScrollBox(aParent).Controls[pFrameNum] is TPagesCheckerMainFrame then
+    if Assigned(PagesCheckerMainForm.sbFrames.FindComponent(cFrameBaseName + pFrameCnt.ToString)) then
       Inc(pFrameCnt);
 
   SetLength(MainFrames, Length(MainFrames) + 1);
