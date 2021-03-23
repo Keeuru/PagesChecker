@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, Vcl.StdCtrls, Vcl.ComCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Menus, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Samples.Spin;
 
 type
   TPagesCheckerMainForm = class(TForm)
@@ -22,6 +22,8 @@ type
     btnCancelChanges: TButton;
     procedure miFrameAddClick(Sender: TObject);
     procedure btnSaveChangesClick(Sender: TObject);
+    procedure btnCancelChangesClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,9 +40,19 @@ uses
 
 {$R *.dfm}
 
+procedure TPagesCheckerMainForm.btnCancelChangesClick(Sender: TObject);
+begin
+  LoadData;
+end;
+
 procedure TPagesCheckerMainForm.btnSaveChangesClick(Sender: TObject);
 begin
   SaveData;
+end;
+
+procedure TPagesCheckerMainForm.FormShow(Sender: TObject);
+begin
+  LoadData;
 end;
 
 procedure TPagesCheckerMainForm.miFrameAddClick(Sender: TObject);

@@ -11,6 +11,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 14
   object Splitter1: TSplitter
@@ -125,6 +126,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
         Align = alClient
         Caption = #1054#1090#1084#1077#1085#1072
         TabOrder = 3
+        OnClick = btnCancelChangesClick
         ExplicitLeft = 12
         ExplicitTop = 6
         ExplicitWidth = 75
