@@ -8,3 +8,5 @@ __history/
 *.res
 
 Win32/Debug/
+
+__recovery/
