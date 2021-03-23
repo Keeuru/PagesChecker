@@ -17,7 +17,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
     Left = 500
     Top = 0
     Height = 468
-    ExplicitLeft = 608
+    Beveled = True
     ExplicitTop = 264
     ExplicitHeight = 100
   end
