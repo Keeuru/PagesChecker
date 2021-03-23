@@ -40,6 +40,17 @@ var
   MainFrames: array of TFrames;
   Interval: Integer;
 
+const
+  cSaveFileName = 'save.txt';
+  cFrameBaseName = 'PagesCheckerMainFrame';
+  cJSON_frames = 'frames';
+  cJSON_interval = 'interval';
+  cJSON_name = 'name';
+  cJSON_active = 'active';
+  cJSON_search = 'search';
+  cJSON_url = 'url';
+  cJSON_price = 'min_price';
+
 implementation
 
 procedure SaveData;
@@ -54,20 +65,20 @@ begin
   begin
     pJSONArray := TJSONArray.Create();
     pInnerObject := TJSONObject.Create;
-    pInnerObject.AddPair(TJSONPair.Create('name', MainFrames[i].fFrame.Name));
-    pInnerObject.AddPair(TJSONPair.Create('active', MainFrames[i].fActive.ToString()));
-    pInnerObject.AddPair(TJSONPair.Create('search', MainFrames[i].fSearch));
-    pInnerObject.AddPair(TJSONPair.Create('url', MainFrames[i].fURL));
-    pInnerObject.AddPair(TJSONPair.Create('min_price', MainFrames[i].fMinPrice.ToString));
+    pInnerObject.AddPair(TJSONPair.Create(cJSON_name, MainFrames[i].fFrame.Name));
+    pInnerObject.AddPair(TJSONPair.Create(cJSON_active, MainFrames[i].fActive.ToString()));
+    pInnerObject.AddPair(TJSONPair.Create(cJSON_search, MainFrames[i].fSearch));
+    pInnerObject.AddPair(TJSONPair.Create(cJSON_url, MainFrames[i].fURL));
+    pInnerObject.AddPair(TJSONPair.Create(cJSON_price, MainFrames[i].fMinPrice.ToString));
     pJSONArray.AddElement(pInnerObject);
   end;
-  pJSONObject.AddPair('frames', pJSONArray);
-  pJSONObject.AddPair('interval', Interval.ToString);
+  pJSONObject.AddPair(cJSON_frames, pJSONArray);
+  pJSONObject.AddPair(cJSON_interval, Interval.ToString);
 
   with TStringList.Create do
   try
     Text := pJSONObject.ToString;
-    SaveToFile('save.txt');
+    SaveToFile(cSaveFileName);
   finally
     Free;
   end;
@@ -83,7 +94,7 @@ begin
 
   with TStringList.Create do
   try
-    LoadFromFile('save.txt');
+    LoadFromFile(cSaveFileName);
     pJSONObject := TJSONObject.Create;
     pJSONObject := TJSONObject(TJSONObject.ParseJSONValue(Text));
   finally
@@ -92,26 +103,26 @@ begin
   if not Assigned(pJSONObject) then
     Exit;
 
-  pJSONArray := TJSONArray(pJSONObject.Get('frames').JsonValue);
+  pJSONArray := TJSONArray(pJSONObject.Get(cJSON_frames).JsonValue);
   try
     for i := 0 to pJSONArray.Size - 1 do
     begin
       FrameAdd(PagesCheckerMainForm.sbFrames);
-      MainFrames[Length(MainFrames) - 1].fFrame.Name := TJSONObject(pJSONArray.Get(i)).Get('name').JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fActive := Boolean(StrToIntDef(TJSONObject(pJSONArray.Get(i)).Get('active').JsonValue.Value, 0));
-      MainFrames[Length(MainFrames) - 1].fSearch := TJSONObject(pJSONArray.Get(i)).Get('search').JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fURL := TJSONObject(pJSONArray.Get(i)).Get('url').JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fMinPrice := StrToFloatDef(TJSONObject(pJSONArray.Get(i)).Get('min_price').JsonValue.Value, 0.0);
+      MainFrames[Length(MainFrames) - 1].fFrame.Name := TJSONObject(pJSONArray.Get(i)).Get(cJSON_name).JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fActive := Boolean(StrToIntDef(TJSONObject(pJSONArray.Get(i)).Get(cJSON_active).JsonValue.Value, 0));
+      MainFrames[Length(MainFrames) - 1].fSearch := TJSONObject(pJSONArray.Get(i)).Get(cJSON_search).JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fURL := TJSONObject(pJSONArray.Get(i)).Get(cJSON_url).JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fMinPrice := StrToFloatDef(TJSONObject(pJSONArray.Get(i)).Get(cJSON_price).JsonValue.Value, 0.0);
 
-      MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := TJSONObject(pJSONArray.Get(i)).Get('search').JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := TJSONObject(pJSONArray.Get(i)).Get('url').JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fFrame.eMinPrice.Text := TJSONObject(pJSONArray.Get(i)).Get('min_price').JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := TJSONObject(pJSONArray.Get(i)).Get(cJSON_search).JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := TJSONObject(pJSONArray.Get(i)).Get(cJSON_url).JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fFrame.eMinPrice.Text := TJSONObject(pJSONArray.Get(i)).Get(cJSON_price).JsonValue.Value;
     end;
   finally
     FreeAndNil(pJSONArray);
   end;
 
-  Interval := pJSONObject.Values['interval'].AsType<Integer>;
+  Interval := pJSONObject.Values[cJSON_interval].AsType<Integer>;
   PagesCheckerMainForm.edtInterval.Text := Interval.ToString;
 end;
 
@@ -129,8 +140,6 @@ begin
 end;
 
 procedure FrameAdd(aParent: TWinControl);
-const
-  cFameName = 'PagesCheckerMainFrame';
 var
   pFrameCnt, pFrameNum: Integer;
 begin
@@ -143,7 +152,7 @@ begin
   MainFrames[Length(MainFrames) - 1] := TFrames.Create;
   MainFrames[Length(MainFrames) - 1].fFrame := TPagesCheckerMainFrame.Create(aParent);
   MainFrames[Length(MainFrames) - 1].fFrame.Parent := aParent;
-  MainFrames[Length(MainFrames) - 1].fFrame.Name := cFameName + pFrameCnt.ToString;
+  MainFrames[Length(MainFrames) - 1].fFrame.Name := cFrameBaseName + pFrameCnt.ToString;
   MainFrames[Length(MainFrames) - 1].fFrame.Align := alTop;
   MainFrames[Length(MainFrames) - 1].fFrame.Visible := True;
   MainFrames[Length(MainFrames) - 1].fFrame.Top := 5000;
