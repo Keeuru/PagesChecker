@@ -20,6 +20,8 @@ type
     tmrWatch: TTimer;
     btnSaveChanges: TButton;
     btnCancelChanges: TButton;
+    procedure miFrameAddClick(Sender: TObject);
+    procedure btnSaveChangesClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -31,6 +33,19 @@ var
 
 implementation
 
+uses
+  PagesChecker.Main;
+
 {$R *.dfm}
+
+procedure TPagesCheckerMainForm.btnSaveChangesClick(Sender: TObject);
+begin
+  SaveData;
+end;
+
+procedure TPagesCheckerMainForm.miFrameAddClick(Sender: TObject);
+begin
+  FrameAdd(Self.sbFrames);
+end;
 
 end.

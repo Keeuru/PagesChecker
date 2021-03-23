@@ -16,10 +16,9 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
   object Splitter1: TSplitter
     Left = 500
     Top = 0
+    Width = 5
     Height = 468
     Beveled = True
-    ExplicitTop = 264
-    ExplicitHeight = 100
   end
   object pnlMain: TPanel
     Left = 0
@@ -114,6 +113,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
         Align = alClient
         Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
         TabOrder = 2
+        OnClick = btnSaveChangesClick
         ExplicitTop = 6
       end
       object btnCancelChanges: TButton
@@ -147,9 +147,9 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
     end
   end
   object reWatchLog: TRichEdit
-    Left = 503
+    Left = 505
     Top = 0
-    Width = 503
+    Width = 501
     Height = 468
     Align = alClient
     BevelInner = bvNone
@@ -176,6 +176,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
     object miFrameAdd: TMenuItem
       Tag = 1
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+      OnClick = miFrameAddClick
     end
   end
   object tmrWatch: TTimer
