@@ -58,8 +58,8 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       AlignWithMargins = True
       Left = 36
       Top = 6
-      Width = 173
-      Height = 24
+      Width = 172
+      Height = 22
       Margins.Left = 6
       Margins.Top = 6
       Margins.Right = 6
@@ -67,14 +67,15 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       Align = alClient
       TabOrder = 0
       TextHint = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-      ExplicitHeight = 22
+      OnChange = eChange
+      ExplicitWidth = 173
     end
     object eURL: TEdit
       AlignWithMargins = True
-      Left = 221
+      Left = 220
       Top = 6
-      Width = 173
-      Height = 24
+      Width = 172
+      Height = 22
       Margins.Left = 6
       Margins.Top = 6
       Margins.Right = 6
@@ -82,14 +83,16 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       Align = alClient
       TabOrder = 1
       TextHint = 'URL'
-      ExplicitHeight = 22
+      OnChange = eChange
+      ExplicitLeft = 221
+      ExplicitWidth = 173
     end
     object eMinPrice: TEdit
       AlignWithMargins = True
-      Left = 406
+      Left = 404
       Top = 6
       Width = 88
-      Height = 24
+      Height = 22
       Margins.Left = 6
       Margins.Top = 6
       Margins.Right = 6
@@ -97,7 +100,8 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       Align = alClient
       TabOrder = 2
       TextHint = #1052#1080#1085'. '#1094#1077#1085#1072
-      ExplicitHeight = 22
+      OnChange = eChange
+      ExplicitLeft = 406
     end
   end
   object pmFrame: TPopupMenu
@@ -113,6 +117,7 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
     object miFrameActive: TMenuItem
       Tag = 3
       Caption = #1042#1082#1083'/'#1042#1099#1082#1083
+      OnClick = miFrameActiveClick
     end
   end
 end
