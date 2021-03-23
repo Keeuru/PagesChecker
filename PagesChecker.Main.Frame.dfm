@@ -49,6 +49,7 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
         Control = eMinPrice
         Row = 0
       end>
+    PopupMenu = pmFrame
     RowCollection = <
       item
         Value = 100.000000000000000000
