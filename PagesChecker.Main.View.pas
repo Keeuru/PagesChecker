@@ -24,6 +24,8 @@ type
     procedure btnSaveChangesClick(Sender: TObject);
     procedure btnCancelChangesClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure btnStartStopClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -48,6 +50,18 @@ end;
 procedure TPagesCheckerMainForm.btnSaveChangesClick(Sender: TObject);
 begin
   SaveData;
+end;
+
+procedure TPagesCheckerMainForm.btnStartStopClick(Sender: TObject);
+begin
+  tmrWatch.Interval := Interval * 1000;
+  tmrWatch.Enabled := not tmrWatch.Enabled;
+  edtInterval.Enabled := not tmrWatch.Enabled;
+end;
+
+procedure TPagesCheckerMainForm.FormCreate(Sender: TObject);
+begin
+  tmrWatch.Enabled := False;
 end;
 
 procedure TPagesCheckerMainForm.FormShow(Sender: TObject);

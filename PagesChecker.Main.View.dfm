@@ -11,6 +11,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 14
@@ -91,8 +92,9 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
         Width = 94
         Height = 24
         Align = alClient
-        Caption = #1057#1090#1072#1088#1090
+        Caption = #1057#1090#1072#1088#1090'/'#1057#1090#1086#1087
         TabOrder = 0
+        OnClick = btnStartStopClick
       end
       object edtInterval: TEdit
         AlignWithMargins = True
