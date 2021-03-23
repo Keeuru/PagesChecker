@@ -110,6 +110,7 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
     object miFrameAdd: TMenuItem
       Tag = 1
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+      OnClick = miFrameAddClick
     end
     object miFrameDelete: TMenuItem
       Tag = 2

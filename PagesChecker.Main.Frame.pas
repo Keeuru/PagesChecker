@@ -18,6 +18,7 @@ type
     miFrameActive: TMenuItem;
     procedure miFrameActiveClick(Sender: TObject);
     procedure eChange(Sender: TObject);
+    procedure miFrameAddClick(Sender: TObject);
   private
     fArrayNum: Integer;
     { Private declarations }
@@ -52,6 +53,11 @@ begin
   MainFrames[ArrayNum].Active := not MainFrames[ArrayNum].Active;
   for i := 0 to gpMainFrame.ControlCount - 1 do
     gpMainFrame.Controls[i].Enabled := MainFrames[ArrayNum].Active;
+end;
+
+procedure TPagesCheckerMainFrame.miFrameAddClick(Sender: TObject);
+begin
+  FrameAdd(Self.Parent);
 end;
 
 end.
