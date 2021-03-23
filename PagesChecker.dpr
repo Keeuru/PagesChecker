@@ -1,4 +1,4 @@
-program PagesChecker;
+﻿program PagesChecker;
 
 uses
   Vcl.Forms,

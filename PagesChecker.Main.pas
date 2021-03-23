@@ -1,10 +1,10 @@
-unit PagesChecker.Main;
+п»їunit PagesChecker.Main;
 
 interface
 
 uses
   Vcl.Controls, Vcl.Forms, System.SysUtils,
-  //Свои
+  //РЎРІРѕРё
   PagesChecker.Main.View, PagesChecker.Main.Frame;
 
 type
@@ -23,13 +23,13 @@ type
     property MinPrice: Double read fMinPrice write fMinPrice;
   end;
 
-/// <summary>Сохранить текущие данные</summary>
+/// <summary>РЎРѕС…СЂР°РЅРёС‚СЊ С‚РµРєСѓС‰РёРµ РґР°РЅРЅС‹Рµ</summary>
 procedure SaveData;
 
-/// <summary>Загрузить сохраненные данные</summary>
+/// <summary>Р—Р°РіСЂСѓР·РёС‚СЊ СЃРѕС…СЂР°РЅРµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ</summary>
 procedure LoadData;
 
-/// <summary>Создать экземпляр фрейма</summary>
+/// <summary>РЎРѕР·РґР°С‚СЊ СЌРєР·РµРјРїР»СЏСЂ С„СЂРµР№РјР°</summary>
 procedure FrameAdd(aParent: TWinControl);
 
 var

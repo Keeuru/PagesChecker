@@ -1,4 +1,4 @@
-unit PagesChecker.Main.Frame;
+﻿unit PagesChecker.Main.Frame;
 
 interface
 
