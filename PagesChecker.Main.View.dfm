@@ -10,6 +10,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
   Font.Name = 'Default'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 14
   object Splitter1: TSplitter
