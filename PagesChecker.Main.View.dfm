@@ -141,6 +141,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
       BevelInner = bvNone
       BevelOuter = bvNone
       BorderStyle = bsNone
+      PopupMenu = pmMain
       TabOrder = 1
       ExplicitHeight = 431
     end
