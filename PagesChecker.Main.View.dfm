@@ -4,14 +4,14 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
   ClientHeight = 468
   ClientWidth = 1006
   Color = clBtnFace
-  Font.Charset = DEFAULT_CHARSET
+  Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
+  Font.Height = -12
+  Font.Name = 'Default'
   Font.Style = []
   OldCreateOrder = False
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object Splitter1: TSplitter
     Left = 500
     Top = 0
@@ -102,7 +102,7 @@ object PagesCheckerMainForm: TPagesCheckerMainForm
         Align = alClient
         TabOrder = 1
         TextHint = #1048#1085#1090#1077#1088#1074#1072#1083', '#1084#1080#1085
-        ExplicitHeight = 21
+        ExplicitHeight = 22
       end
       object btnSaveChanges: TButton
         AlignWithMargins = True

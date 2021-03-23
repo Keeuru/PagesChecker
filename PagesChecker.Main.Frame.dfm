@@ -3,6 +3,12 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
   Top = 0
   Width = 500
   Height = 36
+  Font.Charset = RUSSIAN_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Default'
+  Font.Style = []
+  ParentFont = False
   TabOrder = 0
   object gpMainFrame: TGridPanel
     Left = 0
@@ -61,7 +67,7 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       Align = alClient
       TabOrder = 0
       TextHint = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
-      ExplicitHeight = 21
+      ExplicitHeight = 22
     end
     object eURL: TEdit
       AlignWithMargins = True
@@ -76,7 +82,7 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       Align = alClient
       TabOrder = 1
       TextHint = 'URL'
-      ExplicitHeight = 21
+      ExplicitHeight = 22
     end
     object eMinPrice: TEdit
       AlignWithMargins = True
@@ -91,7 +97,7 @@ object PagesCheckerMainFrame: TPagesCheckerMainFrame
       Align = alClient
       TabOrder = 2
       TextHint = #1052#1080#1085'. '#1094#1077#1085#1072
-      ExplicitHeight = 21
+      ExplicitHeight = 22
     end
   end
   object pmFrame: TPopupMenu
