@@ -146,7 +146,9 @@ begin
   pFrameCnt := 1;
   for pFrameNum := 0 to TScrollBox(aParent).ControlCount - 1 do
     if Assigned(PagesCheckerMainForm.sbFrames.FindComponent(cFrameBaseName + pFrameCnt.ToString)) then
-      Inc(pFrameCnt);
+      Inc(pFrameCnt)
+    else
+      Break;
 
   SetLength(MainFrames, Length(MainFrames) + 1);
   MainFrames[Length(MainFrames) - 1] := TFrames.Create;
