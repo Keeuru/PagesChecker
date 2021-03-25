@@ -100,13 +100,9 @@ begin
       FrameAdd(PagesCheckerMainForm.sbFrames);
       MainFrames[Length(MainFrames) - 1].fFrame.Name := pSObject.A[cJSON_frames].O[pNum].S[cJSON_name];
       MainFrames[Length(MainFrames) - 1].fActive := pSObject.A[cJSON_frames].O[pNum].B[cJSON_active];
-      MainFrames[Length(MainFrames) - 1].fSearch := pSObject.A[cJSON_frames].O[pNum].S[cJSON_search];
-      MainFrames[Length(MainFrames) - 1].fURL := pSObject.A[cJSON_frames].O[pNum].S[cJSON_url];
-      MainFrames[Length(MainFrames) - 1].fMinPrice := pSObject.A[cJSON_frames].O[pNum].F[cJSON_price];
-      //отображение значений на форме
-      MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := MainFrames[Length(MainFrames) - 1].fSearch;
-      MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := MainFrames[Length(MainFrames) - 1].fURL;
-      MainFrames[Length(MainFrames) - 1].fFrame.eMinPrice.Text := MainFrames[Length(MainFrames) - 1].fMinPrice.ToString;
+      MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := pSObject.A[cJSON_frames].O[pNum].V[cJSON_search];
+      MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := pSObject.A[cJSON_frames].O[pNum].V[cJSON_url];
+      MainFrames[Length(MainFrames) - 1].fFrame.eMinPrice.Text := pSObject.A[cJSON_frames].O[pNum].V[cJSON_price];
     end;
     Interval := pSObject.I[cJSON_interval];
     PagesCheckerMainForm.edtInterval.Text := Interval.ToString;
@@ -132,13 +128,14 @@ procedure FrameAdd(aParent: TWinControl);
 var
   pFrameCnt, pFrameNum: Integer;
 begin
+  //получение свободного индекса для имени компонента
   pFrameCnt := 1;
   for pFrameNum := 0 to TScrollBox(aParent).ControlCount - 1 do
     if Assigned(PagesCheckerMainForm.sbFrames.FindComponent(cFrameBaseName + pFrameCnt.ToString)) then
       Inc(pFrameCnt)
     else
       Break;
-
+  //создание экземпляра фрейма
   SetLength(MainFrames, Length(MainFrames) + 1);
   MainFrames[Length(MainFrames) - 1] := TFrames.Create;
   MainFrames[Length(MainFrames) - 1].fFrame := TPagesCheckerMainFrame.Create(aParent);
