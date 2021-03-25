@@ -59,75 +59,60 @@ uses
 
 procedure SaveData;
 var
-  pJSONObject, pInnerObject: TJSONObject;
-  pJSONArray: TJSONArray;
+  pSObject: ISuperObject;
   i: Integer;
 begin
-  pJSONObject := TJSONObject.Create;
-
-  pJSONArray := TJSONArray.Create();
-  for i := 0 to Length(MainFrames) - 1 do
-  begin
-    pInnerObject := TJSONObject.Create;
-    pInnerObject.AddPair(TJSONPair.Create(cJSON_name, MainFrames[i].fFrame.Name));
-    pInnerObject.AddPair(TJSONPair.Create(cJSON_active, MainFrames[i].fActive.ToString()));
-    pInnerObject.AddPair(TJSONPair.Create(cJSON_search, MainFrames[i].fSearch));
-    pInnerObject.AddPair(TJSONPair.Create(cJSON_url, MainFrames[i].fURL));
-    pInnerObject.AddPair(TJSONPair.Create(cJSON_price, MainFrames[i].fMinPrice.ToString));
-    pJSONArray.AddElement(pInnerObject);
-  end;
-  pJSONObject.AddPair(cJSON_frames, pJSONArray);
-  pJSONObject.AddPair(cJSON_interval, Interval.ToString);
-
-  with TStringList.Create do
+  pSObject := SO;
   try
-    Text := pJSONObject.ToString;
-    SaveToFile(cSaveFileName);
+    for i := 0 to Length(MainFrames) - 1 do
+    begin
+      pSObject.A[cJSON_frames].O[i].V[cJSON_name] := MainFrames[i].fFrame.Name;
+      pSObject.A[cJSON_frames].O[i].V[cJSON_active] := MainFrames[i].fActive;
+      pSObject.A[cJSON_frames].O[i].V[cJSON_search] := MainFrames[i].fSearch;
+      pSObject.A[cJSON_frames].O[i].V[cJSON_url] := MainFrames[i].fURL;
+      pSObject.A[cJSON_frames].O[i].V[cJSON_price] := MainFrames[i].fMinPrice;
+    end;
+    pSObject.V[cJSON_interval] := Interval;
+    pSObject.SaveTo(cSaveFileName);
   finally
-    Free;
+    pSObject := nil;
   end;
 end;
 
 procedure LoadData;
 var
-  pJSONObject: TJSONObject;
-  pJSONArray: TJSONArray;
+  pSObject: ISuperObject;
   i: Integer;
 begin
   FramesClear;
-
+  //читаем JSON из файла
   with TStringList.Create do
   try
     LoadFromFile(cSaveFileName);
-    pJSONObject := TJSONObject.Create;
-    pJSONObject := TJSONObject(TJSONObject.ParseJSONValue(Text));
+    pSObject := SO(Text);
   finally
     Free;
   end;
-  if not Assigned(pJSONObject) then
-    Exit;
-
-  pJSONArray := TJSONArray(pJSONObject.Get(cJSON_frames).JsonValue);
+  //создаем фреймы
   try
-    for i := 0 to pJSONArray.Size - 1 do
+    for i := 0 to pSObject.A[cJSON_frames].Length - 1 do
     begin
       FrameAdd(PagesCheckerMainForm.sbFrames);
-      MainFrames[Length(MainFrames) - 1].fFrame.Name := TJSONObject(pJSONArray.Get(i)).Get(cJSON_name).JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fActive := Boolean(StrToIntDef(TJSONObject(pJSONArray.Get(i)).Get(cJSON_active).JsonValue.Value, 0));
-      MainFrames[Length(MainFrames) - 1].fSearch := TJSONObject(pJSONArray.Get(i)).Get(cJSON_search).JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fURL := TJSONObject(pJSONArray.Get(i)).Get(cJSON_url).JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fMinPrice := StrToFloatDef(TJSONObject(pJSONArray.Get(i)).Get(cJSON_price).JsonValue.Value, 0.0);
-
-      MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := TJSONObject(pJSONArray.Get(i)).Get(cJSON_search).JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := TJSONObject(pJSONArray.Get(i)).Get(cJSON_url).JsonValue.Value;
-      MainFrames[Length(MainFrames) - 1].fFrame.eMinPrice.Text := TJSONObject(pJSONArray.Get(i)).Get(cJSON_price).JsonValue.Value;
+      MainFrames[Length(MainFrames) - 1].fFrame.Name := pSObject.A[cJSON_frames].O[i].S[cJSON_name];
+      MainFrames[Length(MainFrames) - 1].fActive := pSObject.A[cJSON_frames].O[i].B[cJSON_active];
+      MainFrames[Length(MainFrames) - 1].fSearch := pSObject.A[cJSON_frames].O[i].S[cJSON_search];
+      MainFrames[Length(MainFrames) - 1].fURL := pSObject.A[cJSON_frames].O[i].S[cJSON_url];
+      MainFrames[Length(MainFrames) - 1].fMinPrice := pSObject.A[cJSON_frames].O[i].F[cJSON_price];
+      //отображение значений на форме
+      MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := MainFrames[Length(MainFrames) - 1].fSearch;
+      MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := MainFrames[Length(MainFrames) - 1].fURL;
+      MainFrames[Length(MainFrames) - 1].fFrame.eMinPrice.Text := MainFrames[Length(MainFrames) - 1].fMinPrice.ToString;
     end;
+    Interval := pSObject.I[cJSON_interval];
+    PagesCheckerMainForm.edtInterval.Text := Interval.ToString;
   finally
-    FreeAndNil(pJSONArray);
+    pSObject := nil;
   end;
-
-  Interval := pJSONObject.Values[cJSON_interval].AsType<Integer>;
-  PagesCheckerMainForm.edtInterval.Text := Interval.ToString;
 end;
 
 procedure FramesClear;
