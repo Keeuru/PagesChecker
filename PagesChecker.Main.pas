@@ -1,4 +1,4 @@
-﻿unit PagesChecker.Main;
+unit PagesChecker.Main;
 
 interface
 
@@ -60,17 +60,17 @@ uses
 procedure SaveData;
 var
   pSObject: ISuperObject;
-  i: Integer;
+  pNum: Integer;
 begin
   pSObject := SO;
   try
-    for i := 0 to Length(MainFrames) - 1 do
+    for pNum := 0 to Length(MainFrames) - 1 do
     begin
-      pSObject.A[cJSON_frames].O[i].V[cJSON_name] := MainFrames[i].fFrame.Name;
-      pSObject.A[cJSON_frames].O[i].V[cJSON_active] := MainFrames[i].fActive;
-      pSObject.A[cJSON_frames].O[i].V[cJSON_search] := MainFrames[i].fSearch;
-      pSObject.A[cJSON_frames].O[i].V[cJSON_url] := MainFrames[i].fURL;
-      pSObject.A[cJSON_frames].O[i].V[cJSON_price] := MainFrames[i].fMinPrice;
+      pSObject.A[cJSON_frames].O[pNum].V[cJSON_name] := MainFrames[pNum].fFrame.Name;
+      pSObject.A[cJSON_frames].O[pNum].V[cJSON_active] := MainFrames[pNum].fActive;
+      pSObject.A[cJSON_frames].O[pNum].V[cJSON_search] := MainFrames[pNum].fSearch;
+      pSObject.A[cJSON_frames].O[pNum].V[cJSON_url] := MainFrames[pNum].fURL;
+      pSObject.A[cJSON_frames].O[pNum].V[cJSON_price] := MainFrames[pNum].fMinPrice;
     end;
     pSObject.V[cJSON_interval] := Interval;
     pSObject.SaveTo(cSaveFileName);
@@ -82,7 +82,7 @@ end;
 procedure LoadData;
 var
   pSObject: ISuperObject;
-  i: Integer;
+  pNum: Integer;
 begin
   FramesClear;
   //читаем JSON из файла
@@ -95,14 +95,14 @@ begin
   end;
   //создаем фреймы
   try
-    for i := 0 to pSObject.A[cJSON_frames].Length - 1 do
+    for pNum := 0 to pSObject.A[cJSON_frames].Length - 1 do
     begin
       FrameAdd(PagesCheckerMainForm.sbFrames);
-      MainFrames[Length(MainFrames) - 1].fFrame.Name := pSObject.A[cJSON_frames].O[i].S[cJSON_name];
-      MainFrames[Length(MainFrames) - 1].fActive := pSObject.A[cJSON_frames].O[i].B[cJSON_active];
-      MainFrames[Length(MainFrames) - 1].fSearch := pSObject.A[cJSON_frames].O[i].S[cJSON_search];
-      MainFrames[Length(MainFrames) - 1].fURL := pSObject.A[cJSON_frames].O[i].S[cJSON_url];
-      MainFrames[Length(MainFrames) - 1].fMinPrice := pSObject.A[cJSON_frames].O[i].F[cJSON_price];
+      MainFrames[Length(MainFrames) - 1].fFrame.Name := pSObject.A[cJSON_frames].O[pNum].S[cJSON_name];
+      MainFrames[Length(MainFrames) - 1].fActive := pSObject.A[cJSON_frames].O[pNum].B[cJSON_active];
+      MainFrames[Length(MainFrames) - 1].fSearch := pSObject.A[cJSON_frames].O[pNum].S[cJSON_search];
+      MainFrames[Length(MainFrames) - 1].fURL := pSObject.A[cJSON_frames].O[pNum].S[cJSON_url];
+      MainFrames[Length(MainFrames) - 1].fMinPrice := pSObject.A[cJSON_frames].O[pNum].F[cJSON_price];
       //отображение значений на форме
       MainFrames[Length(MainFrames) - 1].fFrame.eSearch.Text := MainFrames[Length(MainFrames) - 1].fSearch;
       MainFrames[Length(MainFrames) - 1].fFrame.eURL.Text := MainFrames[Length(MainFrames) - 1].fURL;
