@@ -53,6 +53,10 @@ const
 
 implementation
 
+uses
+  XSuperObject,
+  XSuperJson;
+
 procedure SaveData;
 var
   pJSONObject, pInnerObject: TJSONObject;
